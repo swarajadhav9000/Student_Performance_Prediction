@@ -1,0 +1,16 @@
+{
+  "features": [
+    "attendance",
+    "study_hours",
+    "previous_score",
+    "participation",
+    "internal_marks"
+  ],
+  "best_classifier": "Random Forest",
+  "classifier_accuracy": 0.9083,
+  "regressor_r2": 0.8632,
+  "all_classifier_results": {
+    "Decision Tree": 0.7917,
+    "Random Forest": 0.9083
+  }
+}
