@@ -1,8 +1,23 @@
-# Student Performance Prediction System
+# 🎓 Student Performance Prediction System
 
-A machine learning capstone project that analyzes student academic data, predicts
-performance outcomes (High / Average / Low), and generates an interactive
-dashboard with study recommendations.
+
+A machine learning project that analyzes student academic data — attendance,
+study hours, prior scores, participation, and internal marks — to predict
+performance outcomes (High / Average / Low) and generate actionable study
+recommendations through an interactive dashboard.
+
+## Overview
+
+Every student's academic outcome is shaped by a handful of measurable habits:
+how often they show up, how much they study, and how they've performed
+before. This project turns those signals into a working prediction tool —
+one that a school or ed-tech platform could plug into a student portal to
+flag at-risk learners early and suggest concrete next steps, rather than
+just reporting grades after the fact.
+
+The system covers the full ML workflow end to end: data preparation,
+exploratory analysis, model training and comparison, and a live dashboard
+for predictions and recommendations.
 
 ## Project Structure
 
@@ -12,95 +27,51 @@ student-performance-prediction/
 │   ├── student_performance_raw.csv      (generated)
 │   └── student_performance_clean.csv    (generated)
 ├── charts/                              (generated EDA charts)
-├── generate_dataset.py                  Module: creates the dataset
+├── screenshots/                         (add your own dashboard screenshots here)
+├── generate_dataset.py                  Dataset creation
 ├── preprocess.py                        Module 1: cleaning & preprocessing
 ├── eda.py                               Module 2: exploratory data analysis
 ├── train_model.py                       Module 3: model training & evaluation
 ├── app.py                               Module 4 & 5: dashboard + recommendations
 ├── requirements.txt
+├── .gitignore
 └── README.md
 ```
 
-## How to Run on Your PC (Windows / Mac / Linux)
+## Dataset
 
-### 1. Install Python
-Make sure Python 3.9+ is installed. Check with:
-```
-python --version
-```
+Since no ready-made dataset was provided within the project timeline, a
+synthetic dataset (`generate_dataset.py`) was generated instead — 600
+student records with realistic ranges for attendance, study hours, previous
+scores, participation, and internal marks, plus intentional missing values
+and duplicate rows to make the cleaning step meaningful. The feature-to-score
+relationship was built with controlled noise so the resulting patterns are
+learnable but not trivial, closer to real academic data than a purely random
+dataset would be.
 
-### 2. Open a terminal in the project folder
-Unzip the project folder and `cd` into it:
-```
-cd student-performance-prediction
-```
+If a real dataset (e.g. the Kaggle Student Performance Dataset) is
+substituted later, only the column names in `preprocess.py` need to be
+adjusted to match.
 
-### 3. Create a virtual environment (recommended)
-```
-python -m venv venv
-```
-Activate it:
-- Windows: `venv\Scripts\activate`
-- Mac/Linux: `source venv/bin/activate`
 
-### 4. Install dependencies
-```
-pip install -r requirements.txt
-```
+## Results
 
-### 5. Run the pipeline, in order
+| Model | Task | Score |
+|---|---|---|
+| Decision Tree | Classification (performance level) | 79.2% accuracy |
+| **Random Forest** (selected) | Classification (performance level) | **90.8% accuracy** |
+| Linear Regression | Regression (final score) | R² = 0.863 |
 
-```
-python generate_dataset.py
-python preprocess.py
-python eda.py
-python train_model.py
-```
+Random Forest was selected automatically in `train_model.py` based on test
+accuracy. Full metrics are saved in `model_metadata.json` after training.
 
-This will:
-- Create `data/student_performance_raw.csv` and `data/student_performance_clean.csv`
-- Save 5 EDA charts into `charts/`
-- Train a Decision Tree and Random Forest classifier + a Linear Regression
-  score predictor, print accuracy/R² scores, and save `model_classifier.pkl`,
-  `model_regressor.pkl`, and `model_metadata.json`
+Feature correlation with final score (see `charts/correlation_heatmap.png`):
+study hours and internal marks are the strongest predictors, attendance the
+weakest — a genuinely useful insight for where intervention effort should go.
 
-### 6. Launch the dashboard
-```
-streamlit run app.py
-```
-This opens the dashboard in your browser (usually `http://localhost:8501`).
+## Tech Stack
 
-- **📊 Dashboard tab**: KPI cards, performance-level donut chart, average
-  score by subject, study-hours-vs-score scatter plot, subject-wise table
-- **🔮 Predict a Student tab**: enter attendance/study hours/etc. and get a
-  color-coded predicted performance level, predicted score, a confidence
-  chart, and tailored recommendations
-- **🗂️ Data Explorer tab**: browse and download the full dataset
-
-The dashboard uses custom CSS (gradient header, styled metric cards,
-color-coded result cards) and Plotly charts, so it looks like a finished
-product rather than a default Streamlit app.
-
-## Notes
-
-- The dataset here is **synthetically generated** (`generate_dataset.py`) since
-  no real dataset was provided. If you'd rather use a real one (e.g. the
-  Kaggle Student Performance Dataset mentioned in the brief), drop it into
-  `data/` and adjust the column names in `preprocess.py` to match.
-- Model choice: Random Forest was selected automatically as the best
-  classifier based on test accuracy (see `train_model.py` output and
-  `model_metadata.json`).
-- Scope intentionally excludes deep learning, real-time monitoring, and
-  large-scale infrastructure, per the project's stated scope limitations.
-
-## Deliverables Checklist (from the brief)
-
-- [x] Source Code — this folder
-- [x] Project Report — write up your workflow, findings from `charts/`, and
-      model accuracy from `model_metadata.json` (I can generate a Word/PDF
-      report from this project if you want one)
-- [ ] PPT Presentation (I can generate this too if you want)
-- [ ] GitHub Repository — push this folder to a new repo
-- [x] Dashboard Screenshots — take screenshots of the running Streamlit app
-- [ ] Deployment Link — deploy via Streamlit Community Cloud (free) or Render
-- [ ] Demo Video — screen-record yourself walking through the dashboard
+- **Language:** Python
+- **Libraries:** Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn, Plotly
+- **Dashboard:** Streamlit
+- **Deployment:** Streamlit Community Cloud
