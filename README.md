@@ -52,9 +52,8 @@ Study hours and internal marks are the strongest predictors of final score; atte
 
 A synthetic dataset of 600 student records was generated (`generate_dataset.py`) because no ready-made dataset was available within the project timeline. It uses realistic value ranges and includes deliberate missing values and duplicate rows so the cleaning step is meaningful.
 
-
 ## Project Structure
-
+```text
 student-performance-prediction/
 ├── data/                        raw and cleaned CSVs
 ├── charts/                      EDA charts
@@ -66,6 +65,7 @@ student-performance-prediction/
 ├── app.py                       Streamlit dashboard and recommendations
 ├── requirements.txt
 └── README.md
+```
 
 
 ## Tech Stack
