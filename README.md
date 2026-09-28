@@ -18,6 +18,9 @@ Each point is a student, colored by performance level.
 
 ![Study hours vs final score](screenshots/dashboard_study_hours.png)
 
+### Prediction and recommendations
+![Prediction](screenshots/prediction.png)
+
 
 ## Overview
 
