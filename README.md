@@ -75,3 +75,5 @@ weakest — a genuinely useful insight for where intervention effort should go.
 - **Libraries:** Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn, Plotly
 - **Dashboard:** Streamlit
 - **Deployment:** Streamlit Community Cloud
+
+## Deployment Link: https://smart-student-predictor.streamlit.app/
